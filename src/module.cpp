@@ -87,14 +87,14 @@ SuperCluster_init(SuperClusterObject *self, PyObject *args, PyObject *kwargs)
         PyErr_SetString(PyExc_ValueError, "Expecting one tag per point.");
         return -1;
     }
-    
+
     std::vector<Point> items(count);
     for (npy_intp i = 0; i < count; ++i) {
         items[i] = std::make_pair(
             lngX(*(double*)PyArray_GETPTR2(points, i, 0)),
             latY(*(double*)PyArray_GETPTR2(points, i, 1)));
     }
-    
+
     std::vector<void *> *itemTags = NULL;
     if (tags) {
         itemTags = new std::vector<void *>(count, NULL);
@@ -106,7 +106,7 @@ SuperCluster_init(SuperClusterObject *self, PyObject *args, PyObject *kwargs)
             }
         }
     }
-    
+
     self->sc = new SuperCluster(items, itemTags, min_zoom, max_zoom, radius, extent);
     self->itemTags = itemTags;
 
@@ -124,7 +124,7 @@ SuperCluster_dealloc(SuperClusterObject *self)
         delete self->itemTags;
         self->itemTags = NULL;
     }
-    
+
     delete self->sc;
 }
 
