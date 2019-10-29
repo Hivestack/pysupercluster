@@ -100,7 +100,7 @@ SuperCluster_init(SuperClusterObject *self, PyObject *args, PyObject *kwargs)
         itemTags = new std::vector<void *>(count, NULL);
         for (npy_intp i = 0; i < count; ++i) {
             PyObject * const tag = PyList_GetItem(tags, i);
-            if (tag) {
+            if (tag && tag != Py_None) {
                 Py_INCREF(tag);
                 (*itemTags)[i] = tag;
             }
